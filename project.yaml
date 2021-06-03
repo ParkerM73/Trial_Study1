@@ -11,9 +11,11 @@ actions:
       highly_sensitive:
         cohort: output/input.csv
   
-  describe: # Line 13 tells the system we want to create a new action called describe.
-    run: python:latest python analysis/report.py #Line 14 says how to run the script (using the python runner).
-    needs: [generate_study_population] #Line 15 tells the system that this action depends on the outputs of the generate_study_population being present.
-    outputs: # Lines 16-18 describe the files that the action creates. 
-      moderately_sensitive: #Line 17 says that the items indented below it are moderately sensitive, that is they may be released to the public after a careful review (and possible redaction). 
-        cohort: output/descriptive.png # Line 18 says that there's one output file, which will be found at output/descriptive.png.
+  # describe:                                      # Line 13 tells the system we want to create a new action called describe.
+  #   run: python:latest python analysis/report2.py #Line 14 says how to run the script (using the python runner).
+  #   needs: [generate_study_population]           #Line 15 tells the system that this action depends on the outputs of the generate_study_population being present.
+  #   outputs:                                     # Lines 16-18 describe the files that the action creates. 
+  #     moderately_sensitive:                      #Line 17 says that the items indented below it are moderately sensitive, that is they may be released to the public after a careful review (and possible redaction). 
+  #       cohort: output/descriptive1.png           # Line 18 says that there's one output file, which will be found at output/descriptive.png.
+
+

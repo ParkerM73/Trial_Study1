@@ -5,6 +5,11 @@ from cohortextractor import StudyDefinition,\
      filter_codes_by_category,\
      combine_codelists
 
+#Import codelists
+chronic_cardiac_disease_codes = codelist_from_csv(
+    "codelists/opensafely-chronic-cardiac-disease.csv", system="ctv3", column="CTV3ID"
+)
+
 
 study = StudyDefinition(
     default_expectations={
@@ -23,5 +28,25 @@ study = StudyDefinition(
             "int": {"distribution": "population_ages"},
         },
     ),
+
+    # https://github.com/opensafely/risk-factors-research/issues/46
+    sex=patients.sex(
+        return_expectations={
+            "rate": "universal",
+            "category": {"ratios": {1: 0.49, 2: 0.51}},
+        }
+    ),
+
+        chronic_cardiac_disease=patients.with_these_clinical_events(
+        chronic_cardiac_disease_codes,
+        returning="date",
+        find_first_match_in_period=True,
+        include_month=True,
+        return_expectations={"incidence": 0.2},
+    ),
+
+
+
+    
 
 )
